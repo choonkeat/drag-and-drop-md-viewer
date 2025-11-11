@@ -42,6 +42,31 @@
             color: #666;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .md-viewer-add-files-btn {
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-transform: none;
+            letter-spacing: normal;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .md-viewer-add-files-btn:hover {
+            background: #1565c0;
+        }
+
+        .md-viewer-add-files-btn:active {
+            background: #0d47a1;
         }
 
         .md-viewer-sidebar-list {
@@ -318,12 +343,34 @@
             margin-bottom: 1rem;
             font-style: italic;
         }
+
+        .md-viewer-version {
+            position: fixed;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.75rem;
+            color: #999;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .md-viewer-version {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.4rem;
+            }
+        }
     </style>
 </head>
 <body>
     <button class="md-viewer-sidebar-toggle" id="sidebarToggle">☰</button>
     <div class="md-viewer-sidebar" id="sidebar">
-        <div class="md-viewer-sidebar-header">Files</div>
+        <div class="md-viewer-sidebar-header">
+            <span>Files</span>
+            <button class="md-viewer-add-files-btn" id="addFilesBtn">+ Add</button>
+        </div>
         <ul class="md-viewer-sidebar-list" id="fileList"></ul>
     </div>
     <div class="md-viewer-container">
@@ -336,6 +383,7 @@
             <div id="rendered"></div>
         </div>
     </div>
+    <div class="md-viewer-version">v2025.11.11</div>
 
     <script>
         const dropzone = document.getElementById('dropzone');
@@ -346,6 +394,7 @@
         const fileList = document.getElementById('fileList');
         const fileInput = document.getElementById('fileInput');
         const sidebarToggle = document.getElementById('sidebarToggle');
+        const addFilesBtn = document.getElementById('addFilesBtn');
 
         // History management
         const fileHistory = {};
@@ -375,6 +424,12 @@
 
         // Click dropzone to trigger file picker
         dropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Click "Add Files" button to trigger file picker
+        addFilesBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             fileInput.click();
         });
 
