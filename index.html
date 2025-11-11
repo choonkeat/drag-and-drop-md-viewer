@@ -590,6 +590,11 @@
             if (fileHistory[hashKey]) {
                 const entry = fileHistory[hashKey];
                 renderContent(entry.html, entry.filename);
+            } else {
+                // Hash exists but no data - clear misleading URL fragment
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+                dropzone.style.display = 'flex';
+                content.classList.remove('visible');
             }
         }
     </script>
